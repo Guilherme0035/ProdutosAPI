@@ -17,4 +17,10 @@ public class Produto {
     private String name;
     private String sku;
     private BigDecimal preco;
+
+    public Produto(String name, String sku, BigDecimal preco) {
+        this.name = name;
+        this.sku = sku;
+        this.preco = preco;
+    }
 }
