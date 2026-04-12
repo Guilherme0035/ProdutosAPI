@@ -4,10 +4,13 @@ import com.gui.produtosAPI.Entity.Produto;
 import com.gui.produtosAPI.Repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -20,6 +23,15 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
+    @Transactional
+    public Optional<Produto> findProductBySku(String sku){
+        Optional<Produto> produto = produtoRepository.findBySku(sku);
+
+        if (produto.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado");
+        }
+        return produto;
+    }
 
     public Produto createProduct(String name, String sku, BigDecimal preco){
 

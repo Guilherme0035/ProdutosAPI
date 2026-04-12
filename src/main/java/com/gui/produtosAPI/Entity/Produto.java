@@ -18,6 +18,11 @@ public class Produto {
     private String sku;
     private BigDecimal preco;
 
+
+    protected Produto() {
+    }
+
+
     public Produto(String name, String sku, BigDecimal preco) {
         this.name = name;
         this.sku = sku;

@@ -5,12 +5,8 @@ import com.gui.produtosAPI.Entity.Produto;
 import com.gui.produtosAPI.Service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +20,12 @@ public class ProdutoController {
     ResponseEntity<List<Produto>> listProducts(){
         List<Produto> allProducts = produtoService.listProducts();
         return ResponseEntity.ok(allProducts);
+    }
+
+    @GetMapping("/api/products/{sku}")
+    ResponseEntity<Optional<Produto>> findBySku(@PathVariable String sku){
+        var produto = produtoService.findProductBySku(sku);
+        return ResponseEntity.ok().body(produto);
     }
 
     @PostMapping("/api/products")
