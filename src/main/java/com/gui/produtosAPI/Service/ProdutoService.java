@@ -2,6 +2,7 @@ package com.gui.produtosAPI.Service;
 
 import com.gui.produtosAPI.Entity.Produto;
 import com.gui.produtosAPI.Repository.ProdutoRepository;
+import com.gui.produtosAPI.Service.Execption.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class ProdutoService {
         Optional<Produto> produto = produtoRepository.findBySku(sku);
 
         if (produto.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado");
+            throw new ResourceNotFoundException("Produto não localizado para o sku: " + sku);
         }
         return produto;
     }
